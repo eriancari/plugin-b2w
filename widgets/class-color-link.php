@@ -1,29 +1,29 @@
 <?php
 
 /**
- * Custom Elementor Widget with Subtitle and Title
+ * Custom Widget Link
  */
 
-class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
+class B2w_Link_Widget extends \Elementor\Widget_Base {
 
     public function get_name()
     {
-        return 'b2w_title';
+        return 'b2w_link';
     }
 
     public function get_title()
     {
-        return __('Title with Subtitle', 'plugin-b2w');
+        return __('Link', 'plugin-b2w');
     }
 
     public function get_icon()
     {
-        return 'eicon-site-title';
+        return 'eicon-editor-link';
     }
 
     public function get_keywords()
     {
-        return ['b2w', 'title', 'subtitle', 'heading', 'happy'];
+        return ['b2w', 'button', 'link', 'happy'];
     }
 
     public function get_categories()
@@ -35,9 +35,9 @@ class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
     {
 
         $this->start_controls_section(
-            'b2w_titles',
+            'b2w_link',
             [
-                'label' => __('Title with Subtitle', 'plugin-b2w'),
+                'label' => __('Link', 'plugin-b2w'),
                 'tab'   => \Elementor\Controls_Manager::TAB_CONTENT,
             ]
         );
@@ -45,55 +45,58 @@ class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
         // add our controls
 
         $this->add_control(
-            'sub_title_text',
+            'link_text',
             [
-                'label' => __('Sub Title Text', 'plugin-b2w'),
+                'label' => __('Link Text', 'plugin-b2w'),
                 'label_block' => true,
                 'type' => \Elementor\Controls_Manager::TEXT,
-                'placeholder' => __('Type your subtitle here..', 'plugin-b2w'),
-                'default' => __('Subtitle text goes here', 'plugin-b2w'),
+                'placeholder' => __('Enter Link Text', 'plugin-b2w'),
+                'default' => __('Click here ->', 'plugin-b2w'),
             ]
         );
 
         $this->add_control(
-            'sub_title_color',
+            'link_url',
             [
-                'label' => __('Sub Title Color', 'plugin-b2w'),
+                'label' => __('Link URL', 'plugin-b2w'),
+                'type' => \Elementor\Controls_Manager::URL,
+                'show_external' => true,
+                'default' => [
+                    'url' => '#',
+                    'is_external' => true,
+                    'nofollow' => false
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'link_color',
+            [
+                'label' => __('Link Color', 'plugin-b2w'),
                 'type' => \Elementor\Controls_Manager::COLOR,
-                'default' => '#F50057',
+                'default' => '#ff3366',
                 'selectors' => [
-                    '{{WRAPPER}} .sub-title' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .colored-link' => 'color: {{VALUE}}',
                 ]
-            ]
-        );
-
-        $this->add_control(
-            'title_text',
-            [
-                'label' => __('Title Text', 'plugin-b2w'),
-                'label_block' => TRUE,
-                'type' => \Elementor\Controls_Manager::TEXT,
-                'placeholder' => __('Add your title here', 'plugin-b2w'),
-                'default' => __('Title text goes here', 'plugin-b2w'),
             ],
         );
 
         $this->add_control(
-            'title_color',
+            'link_color_hover',
             [
-                'label' => __('Title Color', 'plugin-b2w'),
+                'label' => __('Hover Color', 'plugin-b2w'),
                 'type' => \Elementor\Controls_Manager::COLOR,
-                'default' => '#111111',
+                'default' => '#333333',
                 'selectors' => [
-                    '{{WRAPPER}} h2' => 'color: {{VALUE}}',
+                    '{{WRAPPER}} .colored-link:hover' => 'color: {{VALUE}}',
                 ]
             ]
         );
 
         $this->add_control(
-            'title_align',
+            'link_align',
             [
-                'label' => __('Alignment', 'plugin-b2w'),
+                'label' => __('Link Align', 'plugin-b2w'),
                 'type' => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
                     'left' => [
@@ -114,7 +117,6 @@ class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
                 ],
                 'default' => 'left',
                 'toggle' => true,
-
             ],
         );
 
@@ -127,13 +129,15 @@ class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
 
         $settings = $this->get_settings_for_display();
 
-        echo '<div class="title-wrapper ' . $settings['title_align'] . '">';
-        echo '<p class="sub-title">' . $settings['sub_title_text'] . '</p>';
-        echo '<h2>' . $settings['title_text'] . '</h2>';
+        $target = $settings['link_url']['is_external'] ? ' target="_blank"' : '';
+        $nofollow = $settings['link_url']['nofollow'] ? ' rel="nofollow"' : '';
+
+        echo '<div class="link-box ' . $settings['link_align'] . '">';
+        echo '<a class="colored-link" href="' . $settings['link_url']['url'] . '" ' . $target . $nofollow . '>' . $settings['link_text'] . '</a>';
         echo '</div>';
     }
 
 }
 
 // Register widget
-\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \B2w_Section_Title_Widget());
+\Elementor\Plugin::instance()->widgets_manager->register_widget_type(new \B2w_Link_Widget());
