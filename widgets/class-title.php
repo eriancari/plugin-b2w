@@ -93,9 +93,10 @@ class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
         $this->add_control(
             'title_align',
             [
-                'label' => __('Alignment', 'plugin-b2w'),
+                'label' => __('Title Align', 'plugin-b2w'),
                 'type' => \Elementor\Controls_Manager::CHOOSE,
                 'options' => [
+
                     'left' => [
                         'title' => __('Left', 'plugin-b2w'),
                         'icon' => 'eicon-text-align-left',
@@ -113,8 +114,10 @@ class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
 
                 ],
                 'default' => 'left',
+                'selectors' => [
+                    '{{WRAPPER}} .title-wrapper' => 'text-align: {{VALUE}};',
+                ],
                 'toggle' => true,
-
             ],
         );
 
@@ -127,7 +130,7 @@ class B2w_Section_Title_Widget extends \Elementor\Widget_Base {
 
         $settings = $this->get_settings_for_display();
 
-        echo '<div class="title-wrapper ' . $settings['title_align'] . '">';
+        echo '<div class="title-wrapper">';
         echo '<p class="sub-title">' . $settings['sub_title_text'] . '</p>';
         echo '<h2>' . $settings['title_text'] . '</h2>';
         echo '</div>';

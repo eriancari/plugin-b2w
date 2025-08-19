@@ -117,6 +117,9 @@ class B2w_Link_Widget extends \Elementor\Widget_Base {
                 ],
                 'default' => 'left',
                 'toggle' => true,
+                'selectors' => [
+                    '{{WRAPPER}} .link-box' => 'text-align: {{VALUE}};',
+                ],
             ],
         );
 
@@ -132,7 +135,7 @@ class B2w_Link_Widget extends \Elementor\Widget_Base {
         $target = $settings['link_url']['is_external'] ? ' target="_blank"' : '';
         $nofollow = $settings['link_url']['nofollow'] ? ' rel="nofollow"' : '';
 
-        echo '<div class="link-box ' . $settings['link_align'] . '">';
+        echo '<div class="link-box">';
         echo '<a class="colored-link" href="' . $settings['link_url']['url'] . '" ' . $target . $nofollow . '>' . $settings['link_text'] . '</a>';
         echo '</div>';
     }
