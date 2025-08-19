@@ -317,7 +317,7 @@ final class B2W_Elementor_Extension
 		// Include Widget Files
 
 		require_once(__DIR__ . '/widgets/class-buttons.php');
-		// require_once(__DIR__ . '/widgets/class-title.php');
+		require_once(__DIR__ . '/widgets/class-title.php');
 		// require_once(__DIR__ . '/widgets/class-color-link.php');
 		// require_once(__DIR__ . '/widgets/class-info-text-card.php');
 		// require_once(__DIR__ . '/widgets/class-cta.php');
