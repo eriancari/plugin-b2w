@@ -93,7 +93,7 @@ class B2w_Link_Widget extends \Elementor\Widget_Base {
             ]
         );
 
-        $this->add_control(
+        $this->add_responsive_control(
             'link_align',
             [
                 'label' => __('Link Align', 'plugin-b2w'),
@@ -115,6 +115,7 @@ class B2w_Link_Widget extends \Elementor\Widget_Base {
                     ],
 
                 ],
+                'devices' => ['desktop', 'tablet', 'mobile'],
                 'default' => 'left',
                 'toggle' => true,
                 'selectors' => [
